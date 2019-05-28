@@ -2,6 +2,7 @@
 import xplore
 import json
 from colorama import Fore, Back, Style,init
+import os
 
 def query_by_text(text,query):
     query.queryText(text)
@@ -10,11 +11,16 @@ def query_by_text(text,query):
     total_num = data['total_records']
     articles = data['articles']
     # js = json.dumps(articles, sort_keys=True, indent=4, separators=(',', ':'))
+    # print(js)
+    print('Totally '+str(total_num)+' articles')
     for item in articles:
+        url = ''
         title = item['title']
         citing = item['citing_paper_count']
         publication_title = item['publication_title']
         year = item['publication_year']
+        if 'html_url' in item.keys():
+            url = item['html_url']
         authors = []
         for author in item['authors']['authors']:
             authors.append(author['full_name'])
@@ -26,6 +32,7 @@ def query_by_text(text,query):
             print(parsed_author)
             print(str(year)+' '+publication_title)
             print('cite: '+str(citing))
+            print(url)
             print('')
         except:
             continue
@@ -62,5 +69,9 @@ if __name__ == '__main__':
     query.dataType('JSON')
     query.dataFormat('object')
     query.resultSetMax = 20
-    text = raw_input('Input query text: ')
-    query_by_text(text,query)
+    while(1):
+        text = raw_input('Input query text(Input "exit" to close): ')
+        if(text=='exit'):
+            break
+        query_by_text(text,query)
+    os.system('pause')
