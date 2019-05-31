@@ -71,8 +71,6 @@ class IEEEXPLORE():
     def download_pdf(self,p_num,i_num,a_num,title):
         title = title.replace('"','')
         url = 'http://ieeexplore.ieee.org/stampPDF/getPDF.jsp?tp=&isnumber=&arnumber='+a_num
-        url_length = self.get_length_url(5,p_num,i_num,a_num)
-        url_length2 = self.get_length_url(7,p_num,i_num,a_num)
         headers = {
             'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.3',
             'Refer':'https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber='+a_num+'&tag=1',
@@ -80,9 +78,14 @@ class IEEEXPLORE():
         }
         filename = title+'.pdf'
         print('Locating File')
-        response_length = str(requests.get(url_length,headers = headers,stream = True).headers.get('Content-Length'))
-        if(response_length == '203'):
-            response_length = str(requests.get(url_length2,headers = headers,stream = True).headers.get('Content-Length'))
+        i = 7
+        response_length ='203'
+        while(response_length == '203'):
+            url_length = self.get_length_url(i,p_num,i_num,a_num)
+            i = i-1
+            response_length = str(requests.get(url_length,headers = headers,stream = True).headers.get('Content-Length'))
+            if(i==0):
+                break
         # print(response_length)
         # filename = 'ts.pdf'
         print('Start downloading "'+title+'"...')
@@ -102,7 +105,7 @@ class IEEEXPLORE():
                         dl += len(data)
                         f.write(data) 
                         done = int(100 * dl / total_length)
-                        print("[%s%s]" % ('=' * done, ' ' * (100-done)), end='\r')
+                        print(" %2s"%(str(done))+"%%[%s%s]" % ('=' * int(done/5), ' ' * int(20-int(done/5))), end='\r')
                         # sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (100-done)) )    
                         # sys.stdout.flush()
         print()
@@ -118,7 +121,7 @@ if __name__ == '__main__':
     ieee = IEEEXPLORE()
     init()
     while(1):
-        print('Input query text(Input "exit" to close): ')
+        print(Back.CYAN+'Input query text(Input "exit" to close): '+Style.RESET_ALL)
         lines = []
         count = 0
         while True:
@@ -130,7 +133,7 @@ if __name__ == '__main__':
             else:
                 break
             count = count+1
-            if(count ==2):
+            if(count ==1):
                 break
         
         text = ' '.join(lines)

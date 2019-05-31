@@ -277,7 +277,6 @@
   ('threading', 'c:\\python27\\lib\\threading.py', 'PYMODULE'),
   ('random', 'c:\\python27\\lib\\random.py', 'PYMODULE'),
   ('hashlib', 'c:\\python27\\lib\\hashlib.py', 'PYMODULE'),
-  ('__future__', 'c:\\python27\\lib\\__future__.py', 'PYMODULE'),
   ('_threading_local', 'c:\\python27\\lib\\_threading_local.py', 'PYMODULE'),
   ('collections', 'c:\\python27\\lib\\collections.py', 'PYMODULE'),
   ('doctest', 'c:\\python27\\lib\\doctest.py', 'PYMODULE'),
@@ -753,4 +752,5 @@
   ('xml.etree.ElementPath',
    'c:\\python27\\lib\\xml\\etree\\ElementPath.py',
    'PYMODULE'),
-  ('xml.etree', 'c:\\python27\\lib\\xml\\etree\\__init__.py', 'PYMODULE')])
+  ('xml.etree', 'c:\\python27\\lib\\xml\\etree\\__init__.py', 'PYMODULE'),
+  ('__future__', 'c:\\python27\\lib\\__future__.py', 'PYMODULE')])
