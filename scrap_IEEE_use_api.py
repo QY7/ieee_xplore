@@ -78,7 +78,8 @@ class IEEEXPLORE():
         self.query = xplore.xploreapi.XPLORE(self.key)
         self.query.dataType('JSON')
         self.query.dataFormat('object')
-        self.query.resultSetMax = 20
+        self.query.resultSetMax = 10
+        self.query.sortField = 'publication_year'
         self.item_per_turn = 1
 
     def start_query(self,text):
@@ -95,7 +96,7 @@ class IEEEXPLORE():
         down_list = []
         while(1):
             print(Back.CYAN+'Input query text(Input "start" to start download): '+Style.RESET_ALL)
-            text = raw_input()
+            text = input()
             if(text == 'start'):
                 break
             elif(text == 'exit'):
@@ -111,7 +112,7 @@ class IEEEXPLORE():
                 article = Article(articles[i])
                 # print(Fore.RED + 'some red text')
                 article.print_info(i)
-                flag = raw_input("Download it? y/n")
+                flag = input("Download it? y/n")
                 if(flag == 'y' or flag =='Y' or flag =='Yes' or flag =='yes'):
                     down_list.append(article)
                 elif(flag == 'exit'):
@@ -146,7 +147,7 @@ class IEEEXPLORE():
             # print(Fore.RED + 'some red text')
             article.print_info(i)
             articles_list.append(article)
-        down_flag = raw_input('Input num to start downloading: [type exit to end]')
+        down_flag = input('Input num to start downloading: [type exit to end]')
         if(down_flag == 'exit'):
             return False
         elif(down_flag == 'no'):
@@ -212,27 +213,27 @@ if __name__ == '__main__':
     init()
 
     # list download mode
-    ieee.down_list_mode()
+    # ieee.down_list_mode()
     # query mode
-    # while(1):
-    #     print(Back.CYAN+'Input query text(Input "exit" to close): '+Style.RESET_ALL)
-    #     # lines = []
-    #     # count = 0
-    #     # while True:
-    #     #     line = raw_input()
-    #     #     if line:
-    #     #         lines.append(line)
-    #     #         if(line == 'exit'):
-    #     #             break
-    #     #     else:
-    #     #         break
-    #     #     count = count+1
-    #     #     if(count ==1):
-    #     #         break
+    while(1):
+        print(Back.CYAN+'Input query text(Input "exit" to close): '+Style.RESET_ALL)
+        # lines = []
+        # count = 0
+        # while True:
+        #     line = raw_input()
+        #     if line:
+        #         lines.append(line)
+        #         if(line == 'exit'):
+        #             break
+        #     else:
+        #         break
+        #     count = count+1
+        #     if(count ==1):
+        #         break
         
-    #     # text = ' '.join(lines)
-    #     text = raw_input()
-    #     if(text=='exit'):
-    #         break
-    #     print(Back.GREEN+'Start Searching'+Style.RESET_ALL)
-    #     ieee.start_query(text)
+        # text = ' '.join(lines)
+        text = input()
+        if(text=='exit'):
+            break
+        print(Back.GREEN+'Start Searching'+Style.RESET_ALL)
+        ieee.start_query(text)
