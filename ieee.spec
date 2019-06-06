@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['ieee.py'],
-             pathex=['D:\\Documents\\workspace\\python\\ieee_xplore'],
+             pathex=['E:\\Documents\\workspace\\python\\scraper\\IEEE-query'],
              binaries=[],
              datas=[],
              hiddenimports=[],

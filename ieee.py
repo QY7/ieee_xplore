@@ -8,6 +8,8 @@ import requests
 import re
 import math
 from configparser import ConfigParser
+import eventlet
+eventlet.monkey_patch()
 
 class Article():
     def __init__(self,info):
@@ -249,8 +251,9 @@ class IEEEXPLORE():
                 for i in positions:
                     try:
                         print('Start downloading article ['+str(i)+']')
-                        self.download_pdf(articles_list[i-1])
-                        print(Back.GREEN+'['+str(i)+']'+' complete!'+Style.RESET_ALL)
+                        with eventlet.Timeout(60):
+                            self.download_pdf(articles_list[i-1])
+                            print(Back.GREEN+'['+str(i)+']'+' complete!'+Style.RESET_ALL)
                         if(self.ris_down):
                             self.download_ris(article['ar_num'],article.filename_ris)
                     except:
